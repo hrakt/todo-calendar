@@ -1,0 +1,15 @@
+.container {
+  width: 15rem;
+  height: 100%;
+  font-size: 2rem;
+  border: 1rem black solid;
+  text-align: center;
+}
+
+.month {
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+    font-weight: bold;
+  }
+}
