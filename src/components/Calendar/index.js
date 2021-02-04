@@ -3,12 +3,12 @@ import Month from "../Month/Month"
 import styles from "./Calendar.module.scss"
 
 const Calendar = () => {
-  const [currentMonth, setCurrentMonth] = useState("January")
-  const [monthDays, setMonthDays] = useState()
-
-  useEffect(() => {
-    setMonthDays(monthsArr.find(i => i.name === currentMonth).days)
-  }, [currentMonth])
+  const [currentMonth, setCurrentMonth] = useState() // current month
+  const [previousMonth, setPreviousMonth] = useState() // previous month
+  const [nextMonth, setNextMonth] = useState() // next month
+  const [currentDay, setCurrentDay] = useState("") // current day
+  const [currentYear, setYear] = useState(2021) // current year
+  const [todaysDate] = useState(new Date())
 
   const monthsArr = [
     { name: "January", days: 31 },
@@ -25,8 +25,37 @@ const Calendar = () => {
     { name: "December ", days: 31 },
   ]
 
+  const daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ]
+
+  useEffect(() => {
+    var dd = todaysDate.getDay() // Sunaday is 0
+    var mm = todaysDate.getMonth() //January is 0!
+    var yyyy = todaysDate.getFullYear()
+
+    setCurrentDay(daysOfWeek[dd])
+    setYear(yyyy)
+
+    updateMonths(mm)
+  }, [])
+
+  const updateMonths = i => {
+    setCurrentMonth(monthsArr[i])
+    i > 0 ? setPreviousMonth(monthsArr[i - 1]) : setPreviousMonth(monthsArr[11])
+    i < 11 ? setNextMonth(monthsArr[i + 1]) : setNextMonth(monthsArr[0])
+  }
+
   const handleClick = e => {
-    setCurrentMonth(e.target.innerHTML)
+    updateMonths(
+      monthsArr.findIndex(month => month.name === e.target.innerHTML)
+    )
   }
 
   return (
@@ -44,7 +73,14 @@ const Calendar = () => {
           )
         })}
       </div>
-      <Month monthDays={monthDays} />
+      <Month
+        daysOfWeek={daysOfWeek}
+        currentMonth={currentMonth}
+        currentDay={currentDay}
+        currentYear={currentYear}
+        nextMonth={nextMonth}
+        previousMonth={previousMonth}
+      />
     </>
   )
 }
