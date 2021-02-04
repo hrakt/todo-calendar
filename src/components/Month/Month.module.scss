@@ -1,0 +1,19 @@
+.container {
+  width: 70rem;
+  height: 10rem;
+  font-size: 1.6rem;
+  border: 0.5rem black solid;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 5rem;
+  padding: 1rem;
+}
+.day {
+  margin-right: 0.1rem;
+  width: 7rem;
+  cursor: pointer;
+  text-align: center;
+  &:hover {
+    background-color: grey;
+  }
+}
