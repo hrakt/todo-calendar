@@ -1,7 +1,7 @@
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-  font: georgia, serif, sans-serif;
+  /* font:  sans-serif; */
   font-size: 10px;
   box-sizing: border-box;
   overflow-y: scroll;
@@ -11,7 +11,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: hsla(0, 0%, 0%, 0.8);
-  font-family: georgia, serif;
+  /* font-family: georgia, serif; */
   font-weight: normal;
   word-wrap: break-word;
   font-kerning: normal;
@@ -22,6 +22,6 @@ body {
 }
 main {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
 }

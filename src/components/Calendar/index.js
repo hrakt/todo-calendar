@@ -11,18 +11,18 @@ const Calendar = () => {
   const [todaysDate] = useState(new Date())
 
   const monthsArr = [
-    { name: "January", days: 31 },
-    { name: "February", days: 28 },
-    { name: "March", days: 31 },
-    { name: "April", days: 30 },
-    { name: "May", days: 31 },
-    { name: "June", days: 30 },
-    { name: "July", days: 31 },
-    { name: "August", days: 31 },
-    { name: "September", days: 30 },
-    { name: "October", days: 31 },
-    { name: "November ", days: 30 },
-    { name: "December ", days: 31 },
+    { name: "January", days: 31, index: 1 },
+    { name: "February", days: 28, index: 2 },
+    { name: "March", days: 31, index: 3 },
+    { name: "April", days: 30, index: 4 },
+    { name: "May", days: 31, index: 5 },
+    { name: "June", days: 30, index: 6 },
+    { name: "July", days: 31, index: 7 },
+    { name: "August", days: 31, index: 8 },
+    { name: "September", days: 30, index: 9 },
+    { name: "October", days: 31, index: 10 },
+    { name: "November ", days: 30, index: 11 },
+    { name: "December ", days: 31, index: 12 },
   ]
 
   const daysOfWeek = [
@@ -40,9 +40,8 @@ const Calendar = () => {
     var mm = todaysDate.getMonth() //January is 0!
     var yyyy = todaysDate.getFullYear()
 
-    setCurrentDay(daysOfWeek[dd])
+    setCurrentDay(dd)
     setYear(yyyy)
-
     updateMonths(mm)
   }, [])
 
@@ -73,14 +72,16 @@ const Calendar = () => {
           )
         })}
       </div>
-      <Month
-        daysOfWeek={daysOfWeek}
-        currentMonth={currentMonth}
-        currentDay={currentDay}
-        currentYear={currentYear}
-        nextMonth={nextMonth}
-        previousMonth={previousMonth}
-      />
+      {
+        <Month
+          days={daysOfWeek}
+          currentMonth={currentMonth}
+          currentDay={currentDay}
+          currentYear={currentYear}
+          nextMonth={nextMonth}
+          previousMonth={previousMonth}
+        />
+      }
     </>
   )
 }
