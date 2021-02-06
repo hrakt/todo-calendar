@@ -20,7 +20,9 @@ const Month = ({
   }, [currentMonth])
 
   const getDayObj = (year, month, day) => {
-    const dayOfWeek = new Date(`${year}-${month}-${day}`).getDay()
+    let dayOfWeek = new Date(`${year}-${month}-${day}`)
+    // console.log(dayOfWeek)
+    dayOfWeek = dayOfWeek.getUTCDay()
     return { dowIndex: dayOfWeek, dowName: days[dayOfWeek] } //day of week index, day of week name
   }
 
@@ -28,14 +30,10 @@ const Month = ({
     let arr = []
 
     const fom = getDayObj(year, month.index, 1) //first of month
-    console.log(fom)
     if (fom !== 0)
-      for (let i = 0; i < fom.dowIndex; i++) {
-        // console.log(fom.dowIndex)
-        console.log(prevMonth.days)
-        console.log(fom.dowIndex, "index")
+      for (let i = 0; i <= fom.dowIndex - 1; i++) {
         const date = prevMonth.days - (fom.dowIndex - 1 - i)
-        console.log(date)
+
         arr[i] = {
           date: date,
           month: prevMonth.name,
@@ -44,10 +42,12 @@ const Month = ({
       }
 
     for (let i = 1; i <= month.days; i++) {
+      const dayObj = getDayObj(year, month.index, i)
+      console.log(dayObj)
       arr[fom.dowIndex + i] = {
         date: i,
         month: month,
-        ...getDayObj(year, month.index, i),
+        ...dayObj,
       }
     }
 
