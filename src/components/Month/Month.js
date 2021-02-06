@@ -12,6 +12,7 @@ const Month = ({
   const [displayMonth, setDisplayMonth] = useState([])
 
   useEffect(() => {
+    setDisplayMonth([])
     if (currentMonth)
       setDisplayMonth(
         updateMonth(currentYear, currentMonth, currentDay, previousMonth)
@@ -27,28 +28,47 @@ const Month = ({
     let arr = []
 
     const fom = getDayObj(year, month.index, 1) //first of month
+    console.log(fom)
     if (fom !== 0)
       for (let i = 0; i < fom.dowIndex; i++) {
-        console.log(prevMonth.days - (fom.dowIndex - 1))
-        const date = prevMonth.days - (fom.dowIndex - 1)
+        // console.log(fom.dowIndex)
+        console.log(prevMonth.days)
+        console.log(fom.dowIndex, "index")
+        const date = prevMonth.days - (fom.dowIndex - 1 - i)
+        console.log(date)
         arr[i] = {
           date: date,
-          month: prevMonth,
+          month: prevMonth.name,
           ...getDayObj(year, prevMonth.index, date),
         }
       }
 
-    for (let i = fom.dowIndex; i <= month.days; i++) {
-      arr[i] = {
+    for (let i = 1; i <= month.days; i++) {
+      arr[fom.dowIndex + i] = {
         date: i,
         month: month,
         ...getDayObj(year, month.index, i),
       }
     }
 
-    console.log(arr)
+    // console.log(arr)
 
     return arr
+  }
+
+  const returnDays = day => {
+    const dayColumn = []
+    displayMonth.map((item, key) => {
+      if (item.dowName === day) {
+        // console.log(day)
+        dayColumn.push(
+          <div className={styles.day} key={key}>
+            {item.date}
+          </div>
+        )
+      }
+    })
+    return dayColumn
   }
 
   return (
@@ -59,22 +79,11 @@ const Month = ({
           return (
             <div key={key} className={styles.weekDay}>
               {short}
+              {returnDays(day)}
             </div>
           )
         })}
       </div>
-
-      {displayMonth.map((day, key) => {
-        // console.log(day)
-        return (
-          <>
-            <div className={styles.day} key={key}>
-              {day.date}
-            </div>
-            {day % 7 === 0 ? <br /> : null}
-          </>
-        )
-      })}
     </div>
   )
 }
