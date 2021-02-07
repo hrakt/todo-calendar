@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import styles from "./Month.module.scss"
+import cx from "classNames"
 
 const Month = ({
   days,
@@ -41,7 +42,7 @@ const Month = ({
 
         arr[i] = {
           date: date,
-          month: prevMonth.name,
+          month: prevMonth,
           ...getDayObj(yearCheck, prevMonth.index, date),
         }
       }
@@ -56,12 +57,10 @@ const Month = ({
     }
 
     const lom = arr[arr.length - 1] // last of month
-    console.log(lom.dowIndex + 1)
     if (lom.dowIndex !== 6)
       for (let i = 1; i <= 6 - lom.dowIndex; i++) {
         const arrIndex = arr.length + i
         const dayObj = getDayObj(year, nextMonth.index, i)
-        console.log(dayObj)
         arr[arrIndex] = {
           date: i,
           month: nextMonth,
@@ -75,9 +74,14 @@ const Month = ({
   const returnDays = day => {
     const dayColumn = []
     displayMonth.map((item, key) => {
+      const notCurrentMonth = item.month !== currentMonth
+
       if (item.dowName === day) {
         dayColumn.push(
-          <div className={styles.day} key={key}>
+          <div
+            className={cx(styles.day, { [styles.greyedOut]: notCurrentMonth })}
+            key={key}
+          >
             {item.date}
           </div>
         )

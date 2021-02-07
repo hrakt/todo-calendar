@@ -18,6 +18,12 @@
   &:hover {
     background-color: grey;
   }
+
+  &.greyedOut {
+    cursor: default;
+    color: lightgray;
+    pointer-events: none;
+  }
 }
 
 .weekDayContainer {

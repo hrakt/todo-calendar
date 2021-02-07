@@ -58,7 +58,7 @@ const Calendar = () => {
   }
 
   return (
-    <>
+    <React.Fragment>
       <div className={styles.container}>
         {monthsArr.map((month, key) => {
           return (
@@ -82,7 +82,7 @@ const Calendar = () => {
           previousMonth={previousMonth}
         />
       }
-    </>
+    </React.Fragment>
   )
 }
 
