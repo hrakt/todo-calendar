@@ -15,7 +15,13 @@ const Month = ({
     setDisplayMonth([])
     if (currentMonth)
       setDisplayMonth(
-        updateMonth(currentYear, currentMonth, currentDay, previousMonth)
+        updateMonth(
+          currentYear,
+          currentMonth,
+          currentDay,
+          previousMonth,
+          nextMonth
+        )
       )
   }, [currentMonth])
 
@@ -24,14 +30,15 @@ const Month = ({
     return { dowIndex: dayOfWeek, dowName: days[dayOfWeek] } //day of week index, day of week name
   }
 
-  const updateMonth = (year, month, day, prevMonth) => {
+  const updateMonth = (year, month, day, prevMonth, nextMonth) => {
     let arr = []
 
     const fom = getDayObj(year, month.index, 1) //first of month
     if (fom !== 0)
       for (let i = 0; i <= fom.dowIndex - 1; i++) {
         const date = prevMonth.days - (fom.dowIndex - 1 - i)
-        const yearCheck = prevMonth.index === 12 ? year - 1 : year // yearCheck for jan
+        const yearCheck = prevMonth.index === 12 ? year - 1 : year // yearCheck for jan. switches the year to get the correct weekdays
+
         arr[i] = {
           date: date,
           month: prevMonth.name,
@@ -41,7 +48,6 @@ const Month = ({
 
     for (let i = 1; i <= month.days; i++) {
       const dayObj = getDayObj(year, month.index, i)
-      console.log(dayObj)
       arr[fom.dowIndex + i] = {
         date: i,
         month: month,
@@ -49,7 +55,19 @@ const Month = ({
       }
     }
 
-    // console.log(arr)
+    const lom = arr[arr.length - 1] // last of month
+    console.log(lom.dowIndex + 1)
+    if (lom.dowIndex !== 6)
+      for (let i = 1; i <= 6 - lom.dowIndex; i++) {
+        const arrIndex = arr.length + i
+        const dayObj = getDayObj(year, nextMonth.index, i)
+        console.log(dayObj)
+        arr[arrIndex] = {
+          date: i,
+          month: nextMonth,
+          ...dayObj,
+        }
+      }
 
     return arr
   }
@@ -58,7 +76,6 @@ const Month = ({
     const dayColumn = []
     displayMonth.map((item, key) => {
       if (item.dowName === day) {
-        // console.log(day)
         dayColumn.push(
           <div className={styles.day} key={key}>
             {item.date}
@@ -66,6 +83,7 @@ const Month = ({
         )
       }
     })
+
     return dayColumn
   }
 
