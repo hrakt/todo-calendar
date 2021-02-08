@@ -12,4 +12,10 @@
     text-decoration: underline;
     font-weight: bold;
   }
+
+  &.selectedMonth {
+    text-decoration: underline;
+    font-weight: bold;
+    pointer-events: none;
+  }
 }

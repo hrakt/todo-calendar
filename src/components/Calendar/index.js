@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react"
 import Month from "../Month/Month"
 import styles from "./Calendar.module.scss"
+import cx from "classnames"
 
 const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState() // current month
   const [previousMonth, setPreviousMonth] = useState() // previous month
   const [nextMonth, setNextMonth] = useState() // next month
+  const [currentDate, setCurrentDate] = useState()
   const [currentDay, setCurrentDay] = useState("") // current day
   const [currentYear, setYear] = useState(2021) // current year
   const [todaysDate] = useState(new Date())
@@ -40,6 +42,7 @@ const Calendar = () => {
     var mm = todaysDate.getMonth() //January is 0!
     var yyyy = todaysDate.getFullYear()
 
+    setCurrentDate(todaysDate.getDate())
     setCurrentDay(dd)
     setYear(yyyy)
     updateMonths(mm)
@@ -57,13 +60,19 @@ const Calendar = () => {
     )
   }
 
+  const checkSelectedMonth = month => {
+    if (month.name === currentMonth.name) return true
+  }
+
   return (
     <React.Fragment>
       <div className={styles.container}>
         {monthsArr.map((month, key) => {
           return (
             <div
-              className={styles.month}
+              className={cx(styles.month, {
+                [styles.selectedMonth]: checkSelectedMonth(month),
+              })}
               onClick={e => handleClick(e)}
               key={key}
             >
@@ -75,6 +84,7 @@ const Calendar = () => {
       {
         <Month
           days={daysOfWeek}
+          currentDate={currentDate}
           currentMonth={currentMonth}
           currentDay={currentDay}
           currentYear={currentYear}

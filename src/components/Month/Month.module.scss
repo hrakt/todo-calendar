@@ -20,8 +20,12 @@
   }
 
   &.greyedOut {
-    cursor: default;
     color: lightgray;
+    pointer-events: none;
+  }
+
+  &.selectedDate {
+    background-color: grey;
     pointer-events: none;
   }
 }

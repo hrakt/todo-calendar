@@ -6,6 +6,7 @@ const Month = ({
   days,
   currentDay,
   currentMonth,
+  currentDate,
   previousMonth,
   nextMonth,
   currentYear,
@@ -72,15 +73,22 @@ const Month = ({
     return arr
   }
 
+  const checkSelectedDate = date => {
+    if (date.date === currentDate && date.month.name === currentMonth.name)
+      return true
+  }
+
   const returnDays = day => {
     const dayColumn = []
     displayMonth.map((item, key) => {
       const notCurrentMonth = item.month !== currentMonth
-
       if (item.dowName === day) {
         dayColumn.push(
           <div
-            className={cx(styles.day, { [styles.greyedOut]: notCurrentMonth })}
+            className={cx(styles.day, {
+              [styles.greyedOut]: notCurrentMonth,
+              [styles.selectedDate]: checkSelectedDate(item),
+            })}
             key={key}
           >
             {item.date}
