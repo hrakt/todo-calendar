@@ -60,7 +60,8 @@ const Month = ({
     if (lom.dowIndex !== 6)
       for (let i = 1; i <= 6 - lom.dowIndex; i++) {
         const arrIndex = arr.length + i
-        const dayObj = getDayObj(year, nextMonth.index, i)
+        const yearCheck = nextMonth.index === 1 ? year + 1 : year
+        const dayObj = getDayObj(yearCheck, nextMonth.index, i)
         arr[arrIndex] = {
           date: i,
           month: nextMonth,
