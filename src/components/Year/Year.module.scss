@@ -1,0 +1,21 @@
+.container {
+  width: 10rem;
+  height: 100%;
+  border: 0.5rem black solid;
+  margin-right: 5rem;
+  text-align: center;
+  font-size: 1.6rem;
+}
+
+.year {
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+    font-weight: bold;
+  }
+}
+
+.selected {
+  font-weight: bold;
+  text-decoration: underline;
+}

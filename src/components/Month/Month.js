@@ -3,6 +3,7 @@ import styles from "./Month.module.scss"
 import cx from "classNames"
 
 const Month = ({
+  setCurrentDate,
   days,
   currentDay,
   currentMonth,
@@ -79,7 +80,7 @@ const Month = ({
   }
 
   const returnDays = day => {
-    const dayColumn = []
+    var dayColumn = []
     displayMonth.map((item, key) => {
       const notCurrentMonth = item.month !== currentMonth
       if (item.dowName === day) {

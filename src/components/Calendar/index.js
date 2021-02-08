@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"
+
 import Month from "../Month/Month"
+import Year from "../Year/Year"
 import styles from "./Calendar.module.scss"
 import cx from "classnames"
 
@@ -7,9 +9,9 @@ const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState() // current month
   const [previousMonth, setPreviousMonth] = useState() // previous month
   const [nextMonth, setNextMonth] = useState() // next month
-  const [currentDate, setCurrentDate] = useState()
+  const [currentDate, setCurrentDate] = useState() // curent dat 1-31
   const [currentDay, setCurrentDay] = useState("") // current day
-  const [currentYear, setYear] = useState(2021) // current year
+  const [currentYear, setYear] = useState() // current year
   const [todaysDate] = useState(new Date())
 
   const monthsArr = [
@@ -61,11 +63,12 @@ const Calendar = () => {
   }
 
   const checkSelectedMonth = month => {
-    if (month.name === currentMonth.name) return true
+    if (currentMonth && month.name === currentMonth.name) return true
   }
 
   return (
     <React.Fragment>
+      <Year currentYear={currentYear} setCurrentYear={setYear} />
       <div className={styles.container}>
         {monthsArr.map((month, key) => {
           return (
@@ -83,6 +86,7 @@ const Calendar = () => {
       </div>
       {
         <Month
+          setCurrentDate={setCurrentDate}
           days={daysOfWeek}
           currentDate={currentDate}
           currentMonth={currentMonth}
