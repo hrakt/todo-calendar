@@ -4,12 +4,13 @@ import Month from "../Month/Month"
 import Year from "../Year/Year"
 import styles from "./Calendar.module.scss"
 import cx from "classnames"
+import DatePicker from "../DatePicker"
 
 const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState() // current month
   const [previousMonth, setPreviousMonth] = useState() // previous month
   const [nextMonth, setNextMonth] = useState() // next month
-  const [currentDate, setCurrentDate] = useState() // curent dat 1-31
+  const [currentDate, setCurrentDate] = useState() // curent date 1-31
   const [currentDay, setCurrentDay] = useState("") // current day
   const [currentYear, setYear] = useState() // current year
   const [todaysDate] = useState(new Date())
@@ -50,6 +51,10 @@ const Calendar = () => {
     updateMonths(mm)
   }, [])
 
+  useEffect(() => {
+    console.log(currentMonth)
+  }, [currentMonth])
+
   const updateMonths = i => {
     setCurrentMonth(monthsArr[i])
     i > 0 ? setPreviousMonth(monthsArr[i - 1]) : setPreviousMonth(monthsArr[11])
@@ -68,6 +73,11 @@ const Calendar = () => {
 
   return (
     <React.Fragment>
+      <DatePicker
+        currentDate={currentDate}
+        currentYear={currentYear}
+        currentMonth={currentMonth}
+      />
       <Year currentYear={currentYear} setCurrentYear={setYear} />
       <div className={styles.container}>
         {monthsArr.map((month, key) => {

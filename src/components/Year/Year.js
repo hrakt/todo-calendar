@@ -15,6 +15,7 @@ const Year = ({ currentYear, setCurrentYear }) => {
         <div
           className={cx(styles.year, { [styles.selected]: i === year })}
           onClick={() => updateYear(i)}
+          key={i}
         >
           {i}
         </div>
