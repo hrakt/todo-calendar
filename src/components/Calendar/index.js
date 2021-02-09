@@ -48,15 +48,11 @@ const Calendar = () => {
     setCurrentDate(todaysDate.getDate())
     setCurrentDay(dd)
     setYear(yyyy)
+    setCurrentMonth(monthsArr[mm])
     updateMonths(mm)
   }, [])
 
-  useEffect(() => {
-    console.log(currentMonth)
-  }, [currentMonth])
-
   const updateMonths = i => {
-    setCurrentMonth(monthsArr[i])
     i > 0 ? setPreviousMonth(monthsArr[i - 1]) : setPreviousMonth(monthsArr[11])
     i < 11 ? setNextMonth(monthsArr[i + 1]) : setNextMonth(monthsArr[0])
   }
@@ -73,11 +69,13 @@ const Calendar = () => {
 
   return (
     <React.Fragment>
-      <DatePicker
-        currentDate={currentDate}
-        currentYear={currentYear}
-        currentMonth={currentMonth}
-      />
+      {currentMonth && (
+        <DatePicker
+          currentDate={currentDate}
+          currentYear={currentYear}
+          currentMonth={currentMonth}
+        />
+      )}
       <Year currentYear={currentYear} setCurrentYear={setYear} />
       <div className={styles.container}>
         {monthsArr.map((month, key) => {

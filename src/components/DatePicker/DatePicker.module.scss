@@ -7,4 +7,12 @@
   text-align: center;
   display: flex;
   justify-content: center;
+
+  div {
+    cursor: pointer;
+  }
+}
+
+.selected {
+  background-color: lightskyblue;
 }
