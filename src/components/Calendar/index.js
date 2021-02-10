@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react"
 
 import Month from "../Month/Month"
 import Year from "../Year/Year"
-import styles from "./Calendar.module.scss"
-import cx from "classnames"
+
 import DatePicker from "../DatePicker"
+
+import MonthPicker from "../MonthPicker/MonthPicker"
 
 import { monthsArr, daysOfWeek } from "../dataObjects"
 
@@ -34,16 +35,6 @@ const Calendar = () => {
     i < 11 ? setNextMonth(monthsArr[i + 1]) : setNextMonth(monthsArr[0])
   }
 
-  const handleClick = e => {
-    updateMonths(
-      monthsArr.findIndex(month => month.name === e.target.innerHTML)
-    )
-  }
-
-  const checkSelectedMonth = month => {
-    if (currentMonth && month.name === currentMonth.name) return true
-  }
-
   return (
     <React.Fragment>
       {currentMonth && (
@@ -54,21 +45,10 @@ const Calendar = () => {
         />
       )}
       <Year currentYear={currentYear} setCurrentYear={setYear} />
-      <div className={styles.container}>
-        {monthsArr.map((month, key) => {
-          return (
-            <div
-              className={cx(styles.month, {
-                [styles.selectedMonth]: checkSelectedMonth(month),
-              })}
-              onClick={e => handleClick(e)}
-              key={key}
-            >
-              {month.name}
-            </div>
-          )
-        })}
-      </div>
+      <MonthPicker
+        currentMonth={currentMonth}
+        setCurrentMonth={setCurrentMonth}
+      />
       {
         <Month
           setCurrentDate={setCurrentDate}
