@@ -1,31 +1,36 @@
 import React, { useState, useEffect } from "react"
-import styles from "./Month.module.scss"
+import styles from "./DayPicker.module.scss"
 import cx from "classNames"
 
-const Month = ({
-  setCurrentDate,
+import { monthsArr } from "../dataObjects"
+
+const DayPicker = ({
   days,
   currentDay,
   currentMonth,
   currentDate,
-  previousMonth,
-  nextMonth,
   currentYear,
 }) => {
   const [displayMonth, setDisplayMonth] = useState([])
+  const [previousMonth, setPreviousMonth] = useState({}) // previous month
+  const [nextMonth, setNextMonth] = useState({}) // next month
+
+  const monthUpdates = i => {
+    console.clear()
+    console.log(i)
+    console.log(monthsArr[i - 2])
+    i > 0 ? setPreviousMonth(monthsArr[i - 1]) : setPreviousMonth(monthsArr[11])
+    i < 11 ? setNextMonth(monthsArr[i + 1]) : setNextMonth(monthsArr[0])
+    updateMonth(currentYear, currentMonth, currentDay, previousMonth, nextMonth)
+  }
+
+  useEffect(() => {
+    currentMonth && monthUpdates(currentMonth.index)
+  }, [])
 
   useEffect(() => {
     setDisplayMonth([])
-    if (currentMonth)
-      setDisplayMonth(
-        updateMonth(
-          currentYear,
-          currentMonth,
-          currentDay,
-          previousMonth,
-          nextMonth
-        )
-      )
+    monthUpdates(currentMonth.index)
   }, [currentMonth])
 
   const getDayObj = (year, month, day) => {
@@ -37,6 +42,7 @@ const Month = ({
     let arr = []
 
     const fom = getDayObj(year, month.index, 1) //first of month
+    console.log(prevMonth)
     if (fom !== 0)
       for (let i = 0; i <= fom.dowIndex - 1; i++) {
         const date = prevMonth.days - (fom.dowIndex - 1 - i)
@@ -71,7 +77,8 @@ const Month = ({
         }
       }
 
-    return arr
+    setDisplayMonth([])
+    setDisplayMonth(arr)
   }
 
   const checkSelectedDate = date => {
@@ -118,4 +125,4 @@ const Month = ({
   )
 }
 
-export default Month
+export default DayPicker

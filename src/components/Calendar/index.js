@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-import Month from "../Month/Month"
+import DayPicker from "../DayPicker/DayPicker"
 import Year from "../Year/Year"
 
 import DatePicker from "../DatePicker"
@@ -11,8 +11,6 @@ import { monthsArr, daysOfWeek } from "../dataObjects"
 
 const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState() // current month
-  const [previousMonth, setPreviousMonth] = useState() // previous month
-  const [nextMonth, setNextMonth] = useState() // next month
   const [currentDate, setCurrentDate] = useState() // curent date 1-31
   const [currentDay, setCurrentDay] = useState("") // current day
   const [currentYear, setYear] = useState() // current year
@@ -27,13 +25,7 @@ const Calendar = () => {
     setCurrentDay(dd)
     setYear(yyyy)
     setCurrentMonth(monthsArr[mm])
-    updateMonths(mm)
   }, [])
-
-  const updateMonths = i => {
-    i > 0 ? setPreviousMonth(monthsArr[i - 1]) : setPreviousMonth(monthsArr[11])
-    i < 11 ? setNextMonth(monthsArr[i + 1]) : setNextMonth(monthsArr[0])
-  }
 
   return (
     <React.Fragment>
@@ -49,18 +41,16 @@ const Calendar = () => {
         currentMonth={currentMonth}
         setCurrentMonth={setCurrentMonth}
       />
-      {
-        <Month
-          setCurrentDate={setCurrentDate}
+      {currentMonth && (
+        <DayPicker
+          // setCurrentDate={setCurrentDate}
           days={daysOfWeek}
           currentDate={currentDate}
           currentMonth={currentMonth}
           currentDay={currentDay}
           currentYear={currentYear}
-          nextMonth={nextMonth}
-          previousMonth={previousMonth}
         />
-      }
+      )}
     </React.Fragment>
   )
 }

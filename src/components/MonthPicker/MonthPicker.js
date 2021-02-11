@@ -9,15 +9,12 @@ const MonthPicker = ({ currentMonth, setCurrentMonth }) => {
     const selectedMonth =
       monthsArr[monthsArr.findIndex(month => month.name === e.target.innerHTML)]
     setCurrentMonth(selectedMonth)
-
-    // updateMonths(
-    //   monthsArr.findIndex(month => month.name === e.target.innerHTML)
-    // )
   }
 
   const checkSelectedMonth = month => {
     if (currentMonth && month.name === currentMonth.name) return true
   }
+
   return (
     <div className={styles.container}>
       {monthsArr.map((month, key) => {
